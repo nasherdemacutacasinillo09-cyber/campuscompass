@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Welcome to CampusCompass</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="landing.css">
+</head>
+<body>
+<div class="stage">
+  <!-- BACKGROUND VIDEO: put your file at assets/video/background.mp4 (optional: background.webm, and a lighter background-mobile.mp4 for phones).
+       It autoplays muted and loops forever. bgvideo.js builds the <source> list from the data- attributes below.
+       Until a video plays, the background image (background.jpg under a navy tint) is shown. -->
+  <video class="bgv" id="bgv" autoplay muted loop playsinline preload="auto" poster="background.jpg" aria-hidden="true" tabindex="-1" disablepictureinpicture disableremoteplayback
+         data-video="assets/video/background.mp4|assets/video/background.webm"
+         data-mobile="assets/video/background-mobile.mp4"></video>
+  <div class="scrim"></div>
+
+  <main class="center">
+    <h1 class="title">CampusCompass</h1>
+    <p class="tagline">Navigate Your Future</p>
+    <p class="lead">For Grade 12 students heading to college. Find the right university in Metro Manila and Bulacan, and see locations, deadlines, and exam schedules.</p>
+    <div class="cta">
+      <a class="lbtn primary" id="goBtn" href="main.html">Continue</a>
+      <button class="lbtn ghost" id="tutBtn" type="button">Click Tutorial</button>
+    </div>
+    <p class="hint">The tutorial is optional. You can continue anytime.</p>
+  </main>
+  <a class="scroll-cue" id="scrollCue" href="#vidSec" aria-label="Scroll down to the video"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></a>
+</div>
+
+<!-- ===== VIDEO SECTION (below the welcome screen, full screen) =====
+     Put your video at assets/video/intro.mp4 (optional: assets/video/intro.webm).
+     It plays by itself, muted, when this section scrolls into view, and pauses when you scroll away. Use the video controls to unmute.
+     Until the file exists a friendly message shows instead. -->
+<section class="vid" id="vidSec" aria-labelledby="vidT">
+  <div class="vid-in" id="vidIn">
+    <h2 id="vidT" class="sr-only">Introduction video</h2>
+    <div class="vid-frame" id="vidFrame">
+      <video id="introVid" controls muted playsinline preload="auto">
+        <source src="assets/video/intro.mp4" type="video/mp4">
+        <source src="assets/video/intro.webm" type="video/webm">
+      </video>
+      <p class="vid-err" id="vidErr" role="status" hidden>The video could not be loaded right now. You can still continue to the website.</p>
+    </div>
+  </div>
+</section>
+<div class="wipe" aria-hidden="true"></div>
+
+<!-- ===== Optional interactive tutorial ===== -->
+<dialog id="tut" aria-labelledby="tutT">
+  <div class="tut-top">
+    <span class="tut-step" id="tutStep"></span>
+    <button class="tut-x" id="tutX" type="button" aria-label="Close tutorial">&times;</button>
+  </div>
+  <div id="tutBody" class="tut-body">
+    <h2 id="tutT"></h2>
+    <p id="tutD" class="tut-d"></p>
+    <div id="tutDemo" class="demo"></div>
+  </div>
+  <div class="dots" id="tutDots" aria-hidden="true"></div>
+  <div class="tut-nav">
+    <button class="lbtn ghost-d" id="tutSkip" type="button">Skip tutorial</button>
+    <div class="tut-nav-r">
+      <button class="lbtn ghost-d" id="tutBack" type="button">Back</button>
+      <button class="lbtn primary" id="tutNext" type="button">Next</button>
+    </div>
+  </div>
+</dialog>
+
+<script src="bgvideo.js"></script>
+<script src="landing.js"></script>
+</body>
+</html>

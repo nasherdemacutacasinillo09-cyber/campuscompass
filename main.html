@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CampusCompass</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- BACKGROUND VIDEO (fixed, behind everything): uses the same assets/video/background.mp4 as the welcome page (lighter background-mobile.mp4 on phones).
+     To use a different video here, add lobby.mp4 to assets/video and put "assets/video/lobby.mp4|" at the start of data-video below. If no video plays, the background image shows as before. -->
+<video class="bgv" id="bgv" autoplay muted loop playsinline preload="auto" aria-hidden="true" tabindex="-1" disablepictureinpicture disableremoteplayback
+       data-video="assets/video/background.mp4|assets/video/background.webm"
+       data-mobile="assets/video/background-mobile.mp4"></video>
+<a class="skip" href="#schools">Skip to schools</a>
+
+<!-- ===== Header: logos + Philippine Standard Time ===== -->
+<!-- LOGO FILES: put your real logo files in assets/logos/ using the names below.
+     Until a file exists, a plain labeled empty slot shows (not a fake logo). -->
+<header class="top" id="top">
+  <div class="top-in">
+    <div class="top-left">
+      <a class="slot slot-cc" href="index.html" aria-label="CampusCompass welcome page">
+        <img src="assets/logos/campuscompass.png" alt="CampusCompass logo" onload="this.parentNode.classList.add('ok')">
+        <span class="slot-label">CampusCompass</span>
+      </a>
+      <a class="cc-title" href="index.html" tabindex="-1" aria-hidden="true"><span class="cc-name">CampusCompass</span><span class="cc-sub">Navigate Your Future</span></a>
+    </div>
+    <div class="top-right">
+      <div class="logo-pair">
+        <span class="slot slot-p">
+          <img src="assets/logos/deped.png" alt="DepEd logo" onload="this.parentNode.classList.add('ok')">
+          <span class="slot-label">DepEd logo</span>
+        </span>
+        <span class="slot slot-p">
+          <img src="assets/logos/mnhs.png" alt="Meycauayan National High School logo" onload="this.parentNode.classList.add('ok')">
+          <span class="slot-label">MNHS logo</span>
+        </span>
+      </div>
+      <div class="clock" id="clock">
+        <span class="clock-lbl"><span class="l-full">Philippine Standard Time</span><span class="l-short" aria-label="Philippine Standard Time">PST</span></span>
+        <span class="clock-val"><span id="clkDate">&nbsp;</span> <span class="clock-sep" aria-hidden="true">|</span> <time id="clkTime">&nbsp;</time></span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ===== Side navigation (frosted glass) ===== -->
+<button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="side">
+  <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+</button>
+<div class="nav-bk" id="navBk"></div>
+<nav class="side" id="side" aria-label="Main navigation">
+  <b class="side-t">Explore</b>
+  <a href="#schools">Schools</a>
+  <a href="#status">Status</a>
+  <a href="#mapa">Map</a>
+  <a href="#kalendaryo">Calendar</a>
+  <a href="#compare">Compare</a>
+  <a href="#req">Requirements</a>
+  <a href="#guide">How to apply</a>
+  <a href="#about">About</a>
+  <div class="side-f">
+    <button class="side-b" id="tipsBtn" aria-pressed="true">Guide tips: On</button>
+    <a class="side-b" href="index.html">Welcome page</a>
+  </div>
+</nav>
+
+<header class="hero"><div class="wrap">
+<div>
+<div class="brand-row">
+<h1>CampusCompass</h1>
+<p class="tagline">Navigate Your Future</p>
+</div>
+<p class="lead">For Grade 12 students heading to college. Find the right university in Metro Manila and Bulacan, and see locations, deadlines, and exam schedules.</p>
+<div class="pick"><label for="course"><b>What do you want to study?</b></label><div class="trk"><select id="course" style="flex:1"></select><button class="btn" id="explore">Explore</button></div></div>
+<div class="seg" role="group" aria-label="Region">
+<button data-r="All" aria-pressed="true">All</button><button data-r="Metro Manila" aria-pressed="false">Metro Manila</button><button data-r="Bulacan" aria-pressed="false">Bulacan</button>
+</div>
+</div>
+</div></header>
+
+<main>
+<div class="wrap"><p class="note"><b>Note:</b> Some deadlines, exam dates, courses, and requirements here are still sample data. Always check the school's official website before applying.</p></div>
+
+<section id="status"><div class="wrap">
+<h2>Admission status</h2><p class="sub">Tap a category to filter the schools.</p>
+<div class="board" id="board"></div>
+<div class="panel" id="soon" style="margin-top:12px"></div>
+</div></section>
+
+<section id="schools"><div class="wrap">
+<h2>Schools</h2><p class="sub">Pick a school, check its location, and open it on the map.</p>
+<div class="filters">
+<div class="search">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+  <input type="search" id="q" placeholder="Search for a school or city" aria-label="Search" autocomplete="off">
+</div>
+<select id="type" aria-label="Type"><option value="">All types</option><option>Public</option><option>Private</option></select>
+<select id="stat" aria-label="Status"><option value="">All statuses</option><option value="up">Upcoming</option><option value="on">Open now</option><option value="cl">Closed</option></select>
+</div>
+<p class="row" id="rc"></p>
+<div class="grid" id="grid"></div>
+</div></section>
+
+<section id="mapa"><div class="wrap">
+<h2>Admission map</h2><p class="sub">Schools from Bulacan to Metro Manila. Tap a pin for details. Green is open, yellow is upcoming, and red is closed.</p>
+<div class="panel"><svg id="map" viewBox="0 0 365 470" role="img" aria-label="Schematic map of the schools"></svg><p class="row" style="text-align:center;margin:8px 0 0">This is a schematic, not an exact map.</p></div>
+</div></section>
+
+<section id="kalendaryo"><div class="wrap">
+<h2>Admission calendar</h2><p class="sub">Opening dates, deadlines, and exams for the schools in your filter. Tap a day for details.</p>
+<div class="panel"><div class="calh"><button class="btn o" id="pm">Previous</button><b id="mt"></b><button class="btn o" id="nm">Next</button></div>
+<div class="cal" id="calg"></div>
+<div class="leg"><span><i class="dot o"></i> Applications open</span><span><i class="dot d"></i> Deadline</span><span><i class="dot x"></i> Exam</span></div>
+<ul class="evl" id="evl"></ul></div>
+</div></section>
+
+<section id="compare"><div class="wrap">
+<h2>Compare requirements</h2><p class="sub">Pick 2 or 3 schools with Compare on the cards, then press Compare now. This is not a ranking, it only lines up the differences.</p>
+<p class="row" id="cmpmsg" aria-live="polite"></p><div id="cmpout"></div>
+</div></section>
+
+<section id="req"><div class="wrap">
+<h2>Requirements</h2><p class="sub">What schools commonly ask for. Tick the ones you already have. Details differ per school.</p>
+<div class="two">
+<div class="panel"><h3>Documents</h3><ul class="chk" id="chk"></ul><div class="prog"><div id="bar"></div></div><p id="cnt" class="row"></p></div>
+<div class="panel"><h3>Before the exam</h3><ul class="tips">
+<li>Bring your exam permit, a valid ID, a ballpen, and a pencil. Check the calculator policy.</li>
+<li>Try the route to the campus before exam day.</li>
+<li>Leave early. Rush hour is roughly 6 to 9 AM and 5 to 8 PM.</li>
+<li>Get a Beep card for the LRT and MRT.</li>
+<li>Know your way home, and bring water and an umbrella.</li></ul>
+<h3 style="margin-top:18px">Some courses may also ask for</h3><ul class="tips">
+<li>A portfolio for arts and architecture.</li><li>A medical certificate for health courses.</li><li>An audition for music, theater, and sports.</li><li>A recommendation letter, essay, or interview.</li></ul></div>
+</div></div></section>
+
+<section id="guide"><div class="wrap">
+<h2>How to apply</h2><p class="sub">The usual admission steps. Details differ per school.</p>
+<ol class="steps">
+<li><b>Pick a school and course</b>Use the filters above.</li>
+<li><b>Prepare your documents</b>Report card, PSA birth certificate, good moral certificate, and ID photo.</li>
+<li><b>Apply online</b>Create an account on the school's admission portal and submit the form.</li>
+<li><b>Pay the fee and get your exam schedule</b>Save your permit or confirmation number.</li>
+<li><b>Take the exam</b>Then wait for the school's official announcement of results.</li>
+</ol>
+</div></section>
+</main>
+
+<!-- ===== Footer + About ===== -->
+<footer><div class="wrap">
+<section id="about" class="about">
+  <h2>About CampusCompass</h2>
+  <p class="about-text" id="aboutText">CampusCompass is a website designed to help Grade 12 students take the next step toward their future with confidence. It makes finding college admission information easier by gathering important details, such as available courses, admission requirements, application deadlines, and entrance exam schedules, in one convenient platform. Students can also explore different schools and save their favorites while deciding which college best fits their dreams. With CampusCompass, choosing a college becomes easier, less stressful, and more exciting as students discover the right path toward their future.</p>
+  <h3>Developers</h3>
+  <!-- DEVELOPERS: replace each "To be added" with that developer's real information. Do not leave guesses here. -->
+  <ul class="devs">
+    <li><h4 class="dev-n">Nasher C. Demacuta</h4><dl><dt>About:</dt><dd class="pending">To be added</dd><dt>Responsibilities:</dt><dd class="pending">To be added</dd><dt>Skills:</dt><dd class="pending">To be added</dd></dl></li>
+    <li><h4 class="dev-n">Ace Acierto</h4><dl><dt>About:</dt><dd class="pending">To be added</dd><dt>Responsibilities:</dt><dd class="pending">To be added</dd><dt>Skills:</dt><dd class="pending">To be added</dd></dl></li>
+    <li><h4 class="dev-n">Aisha Quin Tesiorna</h4><dl><dt>About:</dt><dd class="pending">To be added</dd><dt>Responsibilities:</dt><dd class="pending">To be added</dd><dt>Skills:</dt><dd class="pending">To be added</dd></dl></li>
+    <li><h4 class="dev-n">Exequiel Nobleza</h4><dl><dt>About:</dt><dd class="pending">To be added</dd><dt>Responsibilities:</dt><dd class="pending">To be added</dd><dt>Skills:</dt><dd class="pending">To be added</dd></dl></li>
+    <li><h4 class="dev-n">Russell Ace Anonuevo</h4><dl><dt>About:</dt><dd class="pending">To be added</dd><dt>Responsibilities:</dt><dd class="pending">To be added</dd><dt>Skills:</dt><dd class="pending">To be added</dd></dl></li>
+  </ul>
+</section>
+<div class="foot-b">
+  <p>CampusCompass, a research project of Meycauayan National High School Senior High School, Group 5. Some data is still a placeholder for demo purposes; this is not an official website of any school.</p>
+  <div class="foot-links"><button class="btn o" id="toTop">Back to top</button><a class="btn o" href="index.html">Welcome page</a></div>
+</div>
+  </div></footer>
+
+<!-- ===== Contact (very bottom): one Gmail only. Replace YOUR.TEAM.EMAIL@gmail.com in BOTH places below. ===== -->
+<section id="contact" class="contact"><div class="wrap">
+  <div class="contact-card">
+    <h2>Contact us</h2>
+    <p>Questions or feedback about CampusCompass? Email the team.</p>
+    <a class="contact-mail" id="contactMail" href="mailto:YOUR.TEAM.EMAIL@gmail.com">YOUR.TEAM.EMAIL@gmail.com</a>
+  </div>
+</div></section>
+
+<!-- ===== Compare tray (appears when schools are ticked) ===== -->
+<div class="tray" id="tray" aria-hidden="true"><div class="tray-in">
+  <div class="tray-l"><b id="trayCount"></b><span id="trayNames"></span></div>
+  <div class="tray-a"><button class="btn o" id="trayClear" tabindex="-1">Clear</button><button class="btn" id="trayGo" tabindex="-1">Compare now</button></div>
+</div></div>
+
+<!-- ===== Details dialog (unchanged behavior) ===== -->
+<dialog id="dlg"><div id="dbody"></div><div class="acts" style="margin-top:14px"><button class="btn o" id="dx">Close</button></div></dialog>
+
+<!-- ===== Comparison dialog ===== -->
+<dialog id="cmpdlg" aria-labelledby="cmpTitle">
+  <div class="cmp-head">
+    <h3 id="cmpTitle">School comparison</h3>
+    <button class="x-btn" id="cmpX" aria-label="Close comparison">&times;</button>
+  </div>
+  <p class="row cmp-note">This only lines up the information in CampusCompass. It is not a ranking. "Not yet available" means we do not have that information yet.</p>
+  <div id="cmpBody"></div>
+  <div class="acts cmp-acts">
+    <button class="btn o" id="cmpBack">Back to school selection</button>
+    <button class="btn" id="cmpClose">Close</button>
+  </div>
+</dialog>
+
+<script src="bgvideo.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
